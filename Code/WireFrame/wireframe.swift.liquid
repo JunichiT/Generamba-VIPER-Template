@@ -1,0 +1,35 @@
+//
+//  {{ module_info.name }}{{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import UIKit
+
+class {{ module_info.name }}WireFrame: {{ module_info.name }}WireFrameProtocol {
+
+    class func create{{ module_info.name }}Module() -> UIViewController {
+        if let view = mainStoryboard.instantiateViewController(withIdentifier: "{{ module_info.name }}View") as? {{ module_info.name }}View {
+            let presenter: {{ module_info.name }}PresenterProtocol & {{ module_info.name }}InteractorOutputProtocol = {{ module_info.name }}Presenter()
+            let interactor: {{ module_info.name }}InteractorInputProtocol & {{ module_info.name }}DataManagerOutputProtocol = {{ module_info.name }}Interactor()
+            let dataManager: {{ module_info.name }}DataManagerInputProtocol = {{ module_info.name }}DataManager()
+            let wireFrame: {{ module_info.name }}WireFrameProtocol = {{ module_info.name }}WireFrame()
+
+            view.presenter = presenter
+            presenter.view = view
+            presenter.wireFrame = wireFrame
+            presenter.interactor = interactor
+            interactor.presenter = presenter
+            interactor.dataManager = dataManager
+
+            return view
+        }
+        return UIViewController()
+    }
+
+    static var mainStoryboard: UIStoryboard {
+        return UIStoryboard(name: "Main", bundle: Bundle.main)
+    }
+}

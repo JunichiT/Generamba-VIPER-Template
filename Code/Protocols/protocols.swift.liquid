@@ -1,0 +1,47 @@
+//
+//  {{ prefix }}{{ module_info.name }}{{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+
+protocol {{ module_info.name }}ViewProtocol: class {
+    var presenter: {{ module_info.name }}PresenterProtocol? { get set }
+
+    // PRESENTER -> VIEW
+}
+
+protocol {{ module_info.name }}WireFrameProtocol: class {
+    static func create{{ module_info.name }}Module() -> UIViewController
+    // PRESENTER -> WIREFRAME
+}
+
+protocol {{ module_info.name }}PresenterProtocol: class {
+    var view: {{ module_info.name }}ViewProtocol? { get set }
+    var interactor: {{ module_info.name }}InteractorInputProtocol? { get set }
+    var wireFrame: {{ module_info.name }}WireFrameProtocol? { get set }
+
+    // VIEW -> PRESENTER
+    func viewDidLoad()
+}
+
+protocol {{ module_info.name }}InteractorInputProtocol: class {
+    var presenter: {{ module_info.name }}InteractorOutputProtocol? { get set }
+    var dataManager: {{ module_info.name }}DataManagerInputProtocol? { get set }
+
+    // PRESENTER -> INTERACTOR
+}
+
+protocol {{ module_info.name }}InteractorOutputProtocol: class {
+    // INTERACTOR -> PRESENTER
+}
+
+protocol {{ module_info.name }}DataManagerInputProtocol: class {
+    // INTERACTOR -> DATAMANAGER
+}
+
+protocol {{ module_info.name }}DataManagerOutputProtocol: class {
+    // DATAMANAGER -> INTERACTOR
+}
